@@ -76,11 +76,95 @@
 //   console.log('No borders');
 // }
 
+// LECTURE: The switch Statement
+// 1. Use a switch statement to log the following string for the given 'language':
+// chinese or mandarin: 'MOST number of native speakers!'
+// spanish: '2nd place in number of native speakers'
+// english: '3rd place'
+// hindi: 'Number 4'
+// arabic: '5th most spoken language'
+// for all other simply log 'Great language too :D
+
+// const language = 'Gujarati';
+
+// switch (language) {
+//   case 'chinese':
+//   case 'mandarin':
+//     console.log('MOST number of native speakers!');
+//     break;
+//   case 'spanish':
+//     console.log('2nd most number of native speakers');
+//     break;
+//   case 'english':
+//     console.log('3rd place');
+//     break;
+//   case 'hindi':
+//     console.log('4th place');
+//     break;
+//   case 'arabic':
+//     console.log('5th most spoken language');
+//     break;
+//   default:
+//     console.log('Great language too!');
+// }
+
+// // LECTURE: The Conditional (Ternary) Operator
+// // 1. If your country's population is greater than 33 million, use the ternary operator
+// // to log a string like this to the console: 'Portugal's population is above average'.
+// // Otherwise, simply log 'Portugal's population is below average'. Notice how only
+// // one word changes between these two sentences!
+// // 2. After checking the result, change the population temporarily to 13 and then to
+// // 130. See the different results, and set the population back to original
+
+// const Canada = 3000000;
+// const average = 33000000;
+// const greaterOrLessThanaverage =
+//   Canada > average
+//     ? `Canada's population is above average`
+//     : `Canada's population is below average`;
+// console.log(greaterOrLessThanaverage);
+
 // COURSE WORK
 
 // const inputYear = '1991';
 // console.log(Number(inputYear), inputYear); // Number -> Turns a string into a number
 // console.log(Number(inputYear) + 18);
+
+// const day = 'monday';
+
+// if (day === 'monday') {
+//   console.log('Go to work');
+//   console.log('Revisit the schedule of this week');
+// } else if (day === 'tuesday') {
+//   console.log('Cleanup the house');
+// } else if (day === 'wednesday' || day === 'thursday') {
+//   console.log('Write some codes');
+// } else if (day === 'friday') {
+//   console.log('Get grocery');
+// } else if (day === 'saturday' || day === 'sunday') {
+//   console.log('Enjoy your weekend!');
+// } else {
+//   console.log('Invalid day');
+// }
+
+// switch (day) {
+//   case 'monday':
+//     console.log('Plan course structure');
+//     console.log('Go to coding meetup');
+//     break;
+//   case 'tuesday':
+//     console.log('Prepare theory vids');
+//   case 'wednesday':
+//   case 'thursday':
+//     console.log('Write code examples');
+//   case 'friday':
+//     console.log('Record videos');
+//   case 'saturday':
+//   case 'sunday':
+//     console.log('Enjoy the weekend');
+//   default:
+//     console.log('Not a valid day!');
+// }
 
 // CHALLENGE WORK
 
@@ -194,3 +278,15 @@
 // } else {
 //   console.log('No one won the trophy');
 // }
+
+// Challenge work 4
+const bill1 = 275;
+const bill2 = 40;
+const bill3 = 430;
+
+tip = bill3 >= 50 && bill3 <= 300 ? bill3 * 0.15 : bill3 * 0.2;
+console.log(tip);
+const finalValue = bill3 + tip;
+console.log(finalValue);
+console.log(`The bill was ${bill3}, the tip was ${tip}, and the total value
+${finalValue}`);
