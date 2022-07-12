@@ -194,6 +194,20 @@
 // console.log(neighbours.indexOf('Brazil'));
 // neighbours[2] = 'Argentina'; // OR you can do: neighbours[neighbours.indexOf('Brazil')] = 'Argentina';
 // console.log(neighbours);
+
+// // LECTURE: Introduction to Objects
+// // 1. Create an object called 'myCountry' for a country of your choice, containing
+// // properties 'country', 'capital', 'language', 'population' and
+// // 'neighbours' (an array like we used in previous assignments)
+
+// const myCountry = {
+//   country: 'Canada',
+//   capital: 'Ottawa',
+//   languages: ['English', 'French'],
+//   population: 39000000,
+//   neighbours: ['USA', 'Alaska'],
+// };
+
 // CLASS WORK
 
 // // ARRAYS
@@ -240,24 +254,93 @@
 // console.log(friends.includes('Steven'));
 // console.log(friends.includes('Bob'));
 
-// INTRODUCTION TO OBJECTS
+// // INTRODUCTION TO OBJECTS
 
-// Array recap:
-const rezArray = [
-  'Rez',
-  'Atcha',
-  'student',
-  2022 - 1994,
-  ['Rick', 'Dane', 'Gordon'],
-];
+// // Array recap:
+// const rezArray = [
+//   'Rez',
+//   'Atcha',
+//   'student',
+//   2022 - 1994,
+//   ['Rick', 'Dane', 'Gordon'],
+// ];
 
-const rez = {
-  firstName: 'Rez',
-  lastName: 'Atcha',
-  age: 28,
-  job: 'student',
-  friends: ['Rick', 'Dane', 'Gordon'],
-};
+// const rez = {
+//   firstName: 'Rez',
+//   lastName: 'Atcha',
+//   age: 28,
+//   job: 'student',
+//   friends: ['Rick', 'Dane', 'Gordon'],
+// };
+
+// // DOT VS BRACKET NOTATION
+
+// const rez = {
+//   firstName: 'Rezwan',
+//   lastName: 'Atcha',
+//   age: 28,
+//   job: 'student',
+//   friends: ['Rick', 'Dane', 'Gordon'],
+// };
+
+// // A way of searching for the property name:
+
+// const nameKey = 'Name';
+// console.log(rez['first' + nameKey]);
+// console.log(rez['last' + nameKey]);
+
+// // const interestedIn = prompt(
+// //   'What do you want to know about rez? Choose between firstName, lastName, age, job and friends'
+// // );
+
+// // // console.log(interestedIn);
+
+// // if (rez[interestedIn]) {
+// //   console.log(rez[interestedIn]); // Do not do: rez.interestdIn, as there is no property called interestedIn.
+// // } else {
+// //   console.log(
+// //     'Wrong request! Choose between firstName, lastName, age, job and friends'
+// //   );
+// // }
+
+// rez.location = 'Canada';
+// rez['facebook'] = 'rezmon';
+// console.log(rez);
+
+// // Small Challenge
+// // Rez has 3 friends & his best friend is called Rick
+// console.log(
+//   `${rez.firstName} has ${rez.friends.length} and his best friend is called ${rez.friends[0]}`
+// );
+// console.log(rez.friends.length);
+
+// OJBECT METHODS
+// const rez = {
+//   firstName: 'Rezwan',
+//   lastName: 'Atcha',
+//   birthYeah: 1994,
+//   age: 28,
+//   job: 'student',
+//   friends: ['Rick', 'Dane', 'Gordon'],
+//   hasDriversLicense: true,
+
+//   calcAge: function () {
+//     console.log(this); // 'this' points to 'rez'
+//     return 2037 - this.birthYeah;
+//   },
+//   // small challenge
+//   // Rezwan is a 28-year old student, and he has a/no driver's license.
+
+//   getSummary: function () {
+//     return `${this.firstName} is a ${this.age}-year old ${
+//       this.job
+//     }, and he has ${this.hasDriversLicense ? 'a' : 'no'} driver's license.`;
+//   },
+// };
+
+// console.log(rez.getSummary());
+// console.log(rez.calcAge());
+
 // CHALLENGE WORK
 // Coding Challenge #1
 // Back to the two gymnastics teams, the Dolphins and the Koalas! There is a new
@@ -315,47 +398,106 @@ const rez = {
 // const avg1 = checkWinner(avgDolphins1, avgKoalas1);
 // const avg2 = checkWinner(avgDolphins2, avgKoalas2);
 
-// Coding Challenge #2
-// Steven is still building his tip calculator, using the same rules as before: Tip 15% of
-// the bill if the bill value is between 50 and 300, and if the value is different, the tip is
-// 20%.
+// // Coding Challenge #2
+// // Steven is still building his tip calculator, using the same rules as before: Tip 15% of
+// // the bill if the bill value is between 50 and 300, and if the value is different, the tip is
+// // 20%.
+// // Your tasks:
+// // 1. Write a function 'calcTip' that takes any bill value as an input and returns
+// // the corresponding tip, calculated based on the rules above (you can check out
+// // the code from first tip calculator challenge if you need to). Use the function
+// // type you like the most. Test the function using a bill value of 100
+// // 2. And now let's use arrays! So create an array 'bills' containing the test data
+// // below
+// // 3. Create an array 'tips' containing the tip value for each bill, calculated from
+// // the function you created before
+// // 4. Bonus: Create an array 'total' containing the total values, so the bill + tip
+// // Test data: 125, 555 and 44
+// // Hint: Remember that an array needs a value in each position, and that value can
+// // actually be the returned value of a function! So you can just call a function as array
+// // values (so don't store the tip values in separate variables first, but right in the new
+// // array)
+
+// // tip = bill3 >= 50 && bill3 <= 300 ? bill3 * 0.15 : bill3 * 0.2;
+// // console.log(tip);
+// // const finalValue = bill3 + tip;
+// // console.log(finalValue);
+// // console.log(`The bill was ${bill3}, the tip was ${tip}, and the total value
+// // ${finalValue}`);
+
+// // const billValue = 500;
+// function calcTip(bill) {
+//   if (bill >= 50 && bill <= 300) {
+//     return bill * 0.15;
+//   } else {
+//     return bill * 0.2;
+//   }
+// }
+
+// // calcTip(100);
+
+// const bills = [125, 555, 44];
+
+// const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
+
+// const total = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
+// console.log(bills, tips, total);
+
+// Coding Challenge #3
+// Let's go back to Mark and John comparing their BMIs! This time, let's use objects to
+// implement the calculations! Remember: BMI = mass / height ** 2 = mass
+// / (height * height) (mass in kg and height in meter)
 // Your tasks:
-// 1. Write a function 'calcTip' that takes any bill value as an input and returns
-// the corresponding tip, calculated based on the rules above (you can check out
-// the code from first tip calculator challenge if you need to). Use the function
-// type you like the most. Test the function using a bill value of 100
-// 2. And now let's use arrays! So create an array 'bills' containing the test data
-// below
-// 3. Create an array 'tips' containing the tip value for each bill, calculated from
-// the function you created before
-// 4. Bonus: Create an array 'total' containing the total values, so the bill + tip
-// Test data: 125, 555 and 44
-// Hint: Remember that an array needs a value in each position, and that value can
-// actually be the returned value of a function! So you can just call a function as array
-// values (so don't store the tip values in separate variables first, but right in the new
-// array)
+// 1. For each of them, create an object with properties for their full name, mass, and
+// height (Mark Miller and John Smith)
+// 2. Create a 'calcBMI' method on each object to calculate the BMI (the same
+// method on both objects). Store the BMI value to a property, and also return it
+// from the method
+// 3. Log to the console who has the higher BMI, together with the full name and the
+// respective BMI. Example: "John's BMI (28.3) is higher than Mark's (23.9)!"
+// Test data: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95 m
+// tall.
 
-// tip = bill3 >= 50 && bill3 <= 300 ? bill3 * 0.15 : bill3 * 0.2;
-// console.log(tip);
-// const finalValue = bill3 + tip;
-// console.log(finalValue);
-// console.log(`The bill was ${bill3}, the tip was ${tip}, and the total value
-// ${finalValue}`);
+// const Mark = {
+//   fullName: 'Mark Miller',
+//   mass: 78,
+//   height: 1.69,
+//   calcBMI: function () {
+//     this.bmi = this.mass / this.height ** 2;
+//     return this.bmi;
+//   },
+// };
 
-// const billValue = 500;
-function calcTip(bill) {
-  if (bill >= 50 && bill <= 300) {
-    return bill * 0.15;
-  } else {
-    return bill * 0.2;
-  }
-}
+// console.log(`Mark BMI: ${Mark.calcBMI()}`);
+// const John = {
+//   fullName: 'John Smith',
+//   mass: 92,
+//   height: 1.95,
+//   calcBMI: function () {
+//     this.bmi = this.mass / this.height ** 2;
+//     return this.bmi;
+//   },
+// };
 
-// calcTip(100);
+// console.log(`John BMI: ${John.calcBMI()}`);
 
-const bills = [125, 555, 44];
+// if (Mark.bmi >= John.bmi) {
+//   console.log(
+//     `${Mark.fullName}'s BMI(${Mark.bmi}) is higher than ${John.fullName}'s (${John.bmi})!`
+//   );
+// } else if (John.bmi >= Mark.bmi) {
+//   console.log(
+//     ` ${John.fullName}'s BMI (${John.bmi}) is higher than ${Mark.fullName}'s (${Mark.bmi})!`
+//   );
+// }
 
-const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
+// const MarkMass1 = 78; //kg
+// const MarkHeight1 = 1.69; //meters
+// const JohnMass1 = 92; //kg
+// const JohnHeight1 = 1.95; //meters
 
-const total = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
-console.log(bills, tips, total);
+// const BMIMarkOne = MarkMass1 / MarkHeight1 ** 2;
+// console.log('Mark BMI1:', BMIMarkOne);
+
+// const BMIJohnOne = JohnMass1 / JohnHeight1 ** 2;
+// console.log('John BMI1:', BMIJohnOne);
