@@ -155,45 +155,45 @@
 
 // console.log(percentages);
 
-// LECTURE: Basic Array Operations (Methods)
-// 1. Create an array containing all the neighbouring countries of a country of your
-// choice. Choose a country which has at least 2 or 3 neighbours. Store the array
-// into a variable called 'neighbours'
-// 2. At some point, a new country called 'Utopia' is created in the neighbourhood of
-// your selected country. So add it to the end of the 'neighbours' array
-// 3. Unfortunately, after some time, the new country is dissolved. So remove it from
-// the end of the array
-// 4. If the 'neighbours' array does not include the country ‘Germany’, log to the
-// console: 'Probably not a central European country :D'
-// 5. Change the name of one of your neighbouring countries. To do that, find the
-// index of the country in the 'neighbours' array, and then use that index to
-// change the array at that index position. For example, you can search for
-// 'Sweden' in the array, and then replace it with 'Republic of Sweden'.
+// // LECTURE: Basic Array Operations (Methods)
+// // 1. Create an array containing all the neighbouring countries of a country of your
+// // choice. Choose a country which has at least 2 or 3 neighbours. Store the array
+// // into a variable called 'neighbours'
+// // 2. At some point, a new country called 'Utopia' is created in the neighbourhood of
+// // your selected country. So add it to the end of the 'neighbours' array
+// // 3. Unfortunately, after some time, the new country is dissolved. So remove it from
+// // the end of the array
+// // 4. If the 'neighbours' array does not include the country ‘Germany’, log to the
+// // console: 'Probably not a central European country :D'
+// // 5. Change the name of one of your neighbouring countries. To do that, find the
+// // index of the country in the 'neighbours' array, and then use that index to
+// // change the array at that index position. For example, you can search for
+// // 'Sweden' in the array, and then replace it with 'Republic of Sweden'.
 
-const neighbours = [
-  'Canada',
-  'USA',
-  'Brazil',
-  'Jamaica',
-  'Guyanna',
-  'Trinidad',
-  'Tobago',
-];
+// const neighbours = [
+//   'Canada',
+//   'USA',
+//   'Brazil',
+//   'Jamaica',
+//   'Guyanna',
+//   'Trinidad',
+//   'Tobago',
+// ];
 
-console.log(neighbours);
-neighbours.push('Utopia');
-console.log(neighbours);
+// console.log(neighbours);
+// neighbours.push('Utopia');
+// console.log(neighbours);
 
-neighbours.pop();
-console.log(neighbours);
+// neighbours.pop();
+// console.log(neighbours);
 
-if (!neighbours.includes('Germany')) {
-  console.log('Probably not an American country :D');
-}
+// if (!neighbours.includes('Germany')) {
+//   console.log('Probably not an American country :D');
+// }
 
-console.log(neighbours.indexOf('Brazil'));
-neighbours[2] = 'Argentina'; // OR you can do: neighbours[neighbours.indexOf('Brazil')] = 'Argentina';
-console.log(neighbours);
+// console.log(neighbours.indexOf('Brazil'));
+// neighbours[2] = 'Argentina'; // OR you can do: neighbours[neighbours.indexOf('Brazil')] = 'Argentina';
+// console.log(neighbours);
 // CLASS WORK
 
 // // ARRAYS
@@ -240,6 +240,24 @@ console.log(neighbours);
 // console.log(friends.includes('Steven'));
 // console.log(friends.includes('Bob'));
 
+// INTRODUCTION TO OBJECTS
+
+// Array recap:
+const rezArray = [
+  'Rez',
+  'Atcha',
+  'student',
+  2022 - 1994,
+  ['Rick', 'Dane', 'Gordon'],
+];
+
+const rez = {
+  firstName: 'Rez',
+  lastName: 'Atcha',
+  age: 28,
+  job: 'student',
+  friends: ['Rick', 'Dane', 'Gordon'],
+};
 // CHALLENGE WORK
 // Coding Challenge #1
 // Back to the two gymnastics teams, the Dolphins and the Koalas! There is a new
@@ -296,3 +314,48 @@ console.log(neighbours);
 
 // const avg1 = checkWinner(avgDolphins1, avgKoalas1);
 // const avg2 = checkWinner(avgDolphins2, avgKoalas2);
+
+// Coding Challenge #2
+// Steven is still building his tip calculator, using the same rules as before: Tip 15% of
+// the bill if the bill value is between 50 and 300, and if the value is different, the tip is
+// 20%.
+// Your tasks:
+// 1. Write a function 'calcTip' that takes any bill value as an input and returns
+// the corresponding tip, calculated based on the rules above (you can check out
+// the code from first tip calculator challenge if you need to). Use the function
+// type you like the most. Test the function using a bill value of 100
+// 2. And now let's use arrays! So create an array 'bills' containing the test data
+// below
+// 3. Create an array 'tips' containing the tip value for each bill, calculated from
+// the function you created before
+// 4. Bonus: Create an array 'total' containing the total values, so the bill + tip
+// Test data: 125, 555 and 44
+// Hint: Remember that an array needs a value in each position, and that value can
+// actually be the returned value of a function! So you can just call a function as array
+// values (so don't store the tip values in separate variables first, but right in the new
+// array)
+
+// tip = bill3 >= 50 && bill3 <= 300 ? bill3 * 0.15 : bill3 * 0.2;
+// console.log(tip);
+// const finalValue = bill3 + tip;
+// console.log(finalValue);
+// console.log(`The bill was ${bill3}, the tip was ${tip}, and the total value
+// ${finalValue}`);
+
+// const billValue = 500;
+function calcTip(bill) {
+  if (bill >= 50 && bill <= 300) {
+    return bill * 0.15;
+  } else {
+    return bill * 0.2;
+  }
+}
+
+// calcTip(100);
+
+const bills = [125, 555, 44];
+
+const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
+
+const total = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
+console.log(bills, tips, total);

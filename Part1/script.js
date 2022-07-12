@@ -284,9 +284,9 @@ const bill1 = 275;
 const bill2 = 40;
 const bill3 = 430;
 
-tip = bill3 >= 50 && bill3 <= 300 ? bill3 * 0.15 : bill3 * 0.2;
+tip = bill1 >= 50 && bill1 <= 300 ? bill1 * 0.15 : bill1 * 0.2;
 console.log(tip);
-const finalValue = bill3 + tip;
-console.log(finalValue);
-console.log(`The bill was ${bill3}, the tip was ${tip}, and the total value
-${finalValue}`);
+const finalValue = bill1 * tip;
+console.log(first);
+// console.log(`The bill was ${bill1}, the tip was ${tip}, and the total value
+// 316.25`);
