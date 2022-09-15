@@ -355,62 +355,115 @@ console.log(p, q, r);
 
 // console.log(typeof new String('jonas').slice(1));
 
-// WORKING WITH STRINGS - PART 2
+// // WORKING WITH STRINGS - PART 2
 
-const airline = 'TAP Air Portugal';
+// const airline = 'TAP Air Portugal';
 
-console.log(airline.toLowerCase());
-console.log(airline.toUpperCase());
+// console.log(airline.toLowerCase());
+// console.log(airline.toUpperCase());
 
-// Fix capitalization in name
-const passenger = 'jOnAS'; // Jonas
-const passengerLower = passenger.toLowerCase();
-const passengerCorrect =
-  passengerLower[0].toUpperCase() + passengerLower.slice(1);
-console.log(passengerCorrect);
+// // Fix capitalization in name
+// const passenger = 'jOnAS'; // Jonas
+// const passengerLower = passenger.toLowerCase();
+// const passengerCorrect =
+//   passengerLower[0].toUpperCase() + passengerLower.slice(1);
+// console.log(passengerCorrect);
 
-// Comparing emails
-const email = 'hello@jonas.io';
-const loginEmail = '  Hello@gmail.Io \n ';
+// // Comparing emails
+// const email = 'hello@jonas.io';
+// const loginEmail = '  Hello@gmail.Io \n ';
 
-// const lowerEmail = loginEmail.toLowerCase();
-// const trimmedEmail = lowerEmail.trim();
-const normalizedEmail = loginEmail.toLowerCase().trim();
-console.log(normalizedEmail);
-console.log(email === normalizedEmail);
+// // const lowerEmail = loginEmail.toLowerCase();
+// // const trimmedEmail = lowerEmail.trim();
+// const normalizedEmail = loginEmail.toLowerCase().trim();
+// console.log(normalizedEmail);
+// console.log(email === normalizedEmail);
 
-// replacing
-const priceGB = '288,97G';
-const priceUS = priceGB.replace('G', '$').replace(',', '.');
-console.log(priceUS);
+// // replacing
+// const priceGB = '288,97G';
+// const priceUS = priceGB.replace('G', '$').replace(',', '.');
+// console.log(priceUS);
 
-const announcement =
-  'All passengers come to boarding door 23. Boarding door 23!';
+// const announcement =
+//   'All passengers come to boarding door 23. Boarding door 23!';
 
-console.log(announcement.replaceAll('door', 'gate'));
-// The /door/g is a regular expression.
-console.log(announcement.replace(/door/g, 'gate'));
+// console.log(announcement.replaceAll('door', 'gate'));
+// // The /door/g is a regular expression.
+// console.log(announcement.replace(/door/g, 'gate'));
 
-// Booleans
-const plane = 'Airbus A320neo';
-console.log(plane.includes('A320'));
-console.log(plane.includes('Boeing'));
-console.log(plane.startsWith('Air'));
+// // Booleans
+// const plane = 'Airbus A320neo';
+// console.log(plane.includes('A320'));
+// console.log(plane.includes('Boeing'));
+// console.log(plane.startsWith('Air'));
 
-if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
-  console.log('Part of the NEW Airbus family');
-}
+// if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
+//   console.log('Part of the NEW Airbus family');
+// }
 
-// Practice exercise
-const checkBaggage = function (items) {
-  const baggage = items.toLowerCase();
-  if (baggage.includes('knife') || baggage.includes('gun ')) {
-    console.log('You are NOT allowed on board');
-  } else {
-    console.log('Welcome aboard!');
+// // Practice exercise
+// const checkBaggage = function (items) {
+//   const baggage = items.toLowerCase();
+//   if (baggage.includes('knife') || baggage.includes('gun ')) {
+//     console.log('You are NOT allowed on board');
+//   } else {
+//     console.log('Welcome aboard!');
+//   }
+// };
+
+// checkBaggage('I have a laptop, some Food, and a pocket Knife');
+// checkBaggage('Sock and camera');
+// checkBaggage('Got some snacks and a gune for protection');
+
+// Working With Strings - Part 3
+
+// Split & join
+console.log('a+very+nice+string'.split('+'));
+console.log('Jonas Schmedtmann'.split(' '));
+
+const [firstName, lastName] = 'Jonas Schedtmann'.split(' ');
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join('-');
+
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+
+  for (const n of names) {
+    namesUpper.push(n[0].toUpperCase() + n.slice(1));
   }
+  console.log(namesUpper.join(' '));
 };
 
-checkBaggage('I have a laptop, some Food, and a pocket Knife');
-checkBaggage('Sock and camera');
-checkBaggage('Got some snacks and a gune for protection');
+capitalizeName('jessica ann smith davis');
+capitalizeName('rez atcha');
+
+// Padding
+const message = 'Go to gate 23!';
+console.log(message.padStart(20, '+').padEnd(30, '+'));
+console.log('Jonas'.padStart(20, '+').padEnd(30, '+'));
+
+// The following is great for hiding credit card numbers, like how it is hidden in websites with astriks.
+const maskCreditCard = function (number) {
+  const str = number + '';
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCard(423224930202));
+console.log(maskCreditCard('233232342343'));
+
+// Repeat method
+const message2 = 'Bad Weather... All Departures Delayed...    ';
+console.log(message2.repeat(5));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛩'.repeat(n)}`);
+};
+planesInLine(5);
+planesInLine(3);
+planesInLine(12);
+
+// For more of the string methods: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
