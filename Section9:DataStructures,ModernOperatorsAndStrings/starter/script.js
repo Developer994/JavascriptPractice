@@ -4,6 +4,24 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
+// ENHANCED OBJECT LITERALS
+const weekdays = ['mon', 'tues', 'wed', 'thu', 'fri', 'sat', 'sun'];
+const openingHours = {
+  [weekdays[3]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [weekdays[5]]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+// console.log(openingHours);
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -12,23 +30,11 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
+  // ES6 enhanced object literals
+  openingHours,
 
   order: function (starterIndex, mainIndex) {
-    console.log(this);
+    // console.log(this);
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
 
@@ -308,3 +314,103 @@ console.log(p, q, r);
 // }
 
 // console.log([...menu.entries()]);
+
+// // WORKING WITH STRINGS - PART 1
+
+// const airline = 'TAP Air Portugal';
+// const plane = 'A320';
+
+// console.log(plane[0]);
+// console.log(plane[1]);
+// console.log(plane[2]);
+// console.log('B737'[0]);
+
+// console.log(airline.length);
+// console.log('B737'.length);
+
+// console.log(airline.indexOf('r'));
+// console.log(airline.lastIndexOf('r'));
+// console.log(airline.indexOf('P'));
+
+// console.log(airline.slice(4));
+// console.log(airline.slice(4, 7));
+
+// console.log(airline.slice(0, airline.indexOf('P')));
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+
+// const checkMiddleSeat = function (seat) {
+//   // B and E are middle seats
+//   const s = seat.slice(-1);
+//   if (s === 'B' || s === 'E') console.log('You got the middle seat 😬');
+//   else console.log('You got lucky 😎');
+// };
+
+// checkMiddleSeat('11B');
+// checkMiddleSeat('23C');
+// checkMiddleSeat('3E');
+
+// // Strings turn into objects when using methods:
+// console.log(new String('jonas'));
+// console.log(typeof new String('jonas'));
+
+// console.log(typeof new String('jonas').slice(1));
+
+// WORKING WITH STRINGS - PART 2
+
+const airline = 'TAP Air Portugal';
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+// Fix capitalization in name
+const passenger = 'jOnAS'; // Jonas
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect);
+
+// Comparing emails
+const email = 'hello@jonas.io';
+const loginEmail = '  Hello@gmail.Io \n ';
+
+// const lowerEmail = loginEmail.toLowerCase();
+// const trimmedEmail = lowerEmail.trim();
+const normalizedEmail = loginEmail.toLowerCase().trim();
+console.log(normalizedEmail);
+console.log(email === normalizedEmail);
+
+// replacing
+const priceGB = '288,97G';
+const priceUS = priceGB.replace('G', '$').replace(',', '.');
+console.log(priceUS);
+
+const announcement =
+  'All passengers come to boarding door 23. Boarding door 23!';
+
+console.log(announcement.replaceAll('door', 'gate'));
+// The /door/g is a regular expression.
+console.log(announcement.replace(/door/g, 'gate'));
+
+// Booleans
+const plane = 'Airbus A320neo';
+console.log(plane.includes('A320'));
+console.log(plane.includes('Boeing'));
+console.log(plane.startsWith('Air'));
+
+if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
+  console.log('Part of the NEW Airbus family');
+}
+
+// Practice exercise
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+  if (baggage.includes('knife') || baggage.includes('gun ')) {
+    console.log('You are NOT allowed on board');
+  } else {
+    console.log('Welcome aboard!');
+  }
+};
+
+checkBaggage('I have a laptop, some Food, and a pocket Knife');
+checkBaggage('Sock and camera');
+checkBaggage('Got some snacks and a gune for protection');
