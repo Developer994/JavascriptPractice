@@ -1,8 +1,9 @@
+'use strict';
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // BANKIST APP
 
-/////////////////////////////////////////////////
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
@@ -34,7 +35,6 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
-/////////////////////////////////////////////////
 // Elements
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
@@ -61,183 +61,44 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-// Functions
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = ''; //This line empties the container, allowing you to enter new elements
 
-const displayMovements = function (movements, sort = false) {
-  containerMovements.innerHTML = '';
-
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
-
-  movs.forEach(function (mov, i) {
+  movements.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
-    const html = `
-      <div class="movements__row">
-        <div class="movements__type movements__type--${type}">${
+    const html = `<div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
       i + 1
-    } ${type}</div>
-        <div class="movements__value">${mov}€</div>
-      </div>
-    `;
+    }${type}</div>
+      <div class="movements__value">${mov}€</div>
+    </div>`;
 
-    containerMovements.insertAdjacentHTML('afterbegin', html);
+    containerMovements.insertAdjacentHTML('afterbegin', html); // In the paranthesis, first comes the name of the position and second is the element that you want to insert
+    // 'afterbegin' in the code above appends new elements, whereas 'beforeend' does the opposite.
   });
 };
 
-const calcDisplayBalance = function (acc) {
-  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} €`;
 };
 
-const calcDisplaySummary = function (acc) {
-  const incomes = acc.movements
+displayMovements(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const out = acc.movements
+  const out = movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
-
-  const interest = acc.movements
-    .filter(mov => mov > 0)
-    .map(deposit => (deposit * acc.interestRate) / 100)
-    .filter((int, i, arr) => {
-      // console.log(arr);
-      return int >= 1;
-    })
-    .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
 };
 
-const createUsernames = function (accs) {
-  accs.forEach(function (acc) {
-    acc.username = acc.owner
-      .toLowerCase()
-      .split(' ')
-      .map(name => name[0])
-      .join('');
-  });
-};
-createUsernames(accounts);
-
-const updateUI = function (acc) {
-  // Display movements
-  displayMovements(acc.movements);
-
-  // Display balance
-  calcDisplayBalance(acc);
-
-  // Display summary
-  calcDisplaySummary(acc);
-};
-
-///////////////////////////////////////
-// Event handlers
-let currentAccount;
-
-btnLogin.addEventListener('click', function (e) {
-  // Prevent form from submitting
-  e.preventDefault();
-
-  currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
-  );
-  console.log(currentAccount);
-
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    // Display UI and message
-    labelWelcome.textContent = `Welcome back, ${
-      currentAccount.owner.split(' ')[0]
-    }`;
-    containerApp.style.opacity = 100;
-
-    // Clear input fields
-    inputLoginUsername.value = inputLoginPin.value = '';
-    inputLoginPin.blur();
-
-    // Update UI
-    updateUI(currentAccount);
-  }
-});
-
-btnTransfer.addEventListener('click', function (e) {
-  e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
-  const receiverAcc = accounts.find(
-    acc => acc.username === inputTransferTo.value
-  );
-  inputTransferAmount.value = inputTransferTo.value = '';
-
-  if (
-    amount > 0 &&
-    receiverAcc &&
-    currentAccount.balance >= amount &&
-    receiverAcc?.username !== currentAccount.username
-  ) {
-    // Doing the transfer
-    currentAccount.movements.push(-amount);
-    receiverAcc.movements.push(amount);
-
-    // Update UI
-    updateUI(currentAccount);
-  }
-});
-
-btnLoan.addEventListener('click', function (e) {
-  e.preventDefault();
-
-  const amount = Number(inputLoanAmount.value);
-
-  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
-
-    // Update UI
-    updateUI(currentAccount);
-  }
-  inputLoanAmount.value = '';
-});
-
-btnClose.addEventListener('click', function (e) {
-  e.preventDefault();
-
-  if (
-    inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
-  ) {
-    const index = accounts.findIndex(
-      acc => acc.username === currentAccount.username
-    );
-    console.log(index);
-    // .indexOf(23)
-
-    // Delete account
-    accounts.splice(index, 1);
-
-    // Hide UI
-    containerApp.style.opacity = 0;
-  }
-
-  inputCloseUsername.value = inputClosePin.value = '';
-});
-
-let sorted = false;
-btnSort.addEventListener('click', function (e) {
-  e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
-  sorted = !sorted;
-});
-
-const user = 'Steven Thomas Williams';
-const username = user
-  .toLowerCase()
-  .split(' ')
-  .map(name => name[0])
-  .join('');
-
+calcDisplaySummary(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -248,6 +109,25 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+/////////////////////////////////////////////////
+
+const user = 'Steven Thomas Williams';
+const username = user
+  .toLowerCase()
+  .split(' ')
+  .map(name => name[0])
+  .join('');
+
+// The map callback with arrow function is the same as the following:
+// .map(function (name) {
+//   return name[0];
+// })
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// LECTURES
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
@@ -278,7 +158,7 @@ const currencies = new Map([
 // console.log(arr2);
 
 // // Concat
-// const letterrs = arr.concat(arr2);
+// const letters = arr.concat(arr2);
 // console.log(letters);
 // console.log([...arr, ...arr2]);
 
@@ -321,9 +201,9 @@ const currencies = new Map([
 //     console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`); // Just a reminder, Math.abs gives absolute value, removing the minus sign from each negative number.
 //   }
 // });
-// // 0. function(200)
-// // 1. function(450)
-// // 2. function(400)
+// 0. function(200)
+// 1. function(450)
+// 2. function(400)
 
 // // THE MAP METHOD
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -352,4 +232,141 @@ const currencies = new Map([
 
 // console.log(movementsDescriptions);
 
-// COMPUTING USERNAMES
+// THE FILTER METHOD
+
+// x
+
+// const deposits = movements.filter(function (mov, i, arr) {
+//   return mov > 0;
+// });
+// console.log(movements);
+// console.log(deposits);
+
+// const depositsFor = [];
+// for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+// console.log(depositsFor);
+
+// const withdrawalsFor = [];
+// const negativeAmounts = movements.filter(mov => mov < 0);
+// withdrawalsFor.push(negativeAmounts);
+// console.log(negativeAmounts, withdrawalsFor);
+
+// // THE REDUCE METHOD
+
+// console.log(movements);
+// // accumulator -> Snowball
+// // const balance = movements.reduce(function (acc, cur, i, arr) {
+// //   console.log(`Iteration number ${i}: ${acc}`);
+// //   return acc + cur;
+// // }, 0);
+
+// const balance = movements.reduce((acc, cur) => acc + cur, 0);
+// console.log(balance);
+
+// let balance2 = 0;
+// for (const mov of movements) balance2 += mov;
+// console.log(balance2);
+
+// // Maximum value
+// const max = movements.reduce((acc, mov) => {
+//   if (acc > mov) return acc;
+//   else return mov;
+// }, movements[0]);
+// console.log(max);
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const eurToUsd = 1.1;
+// // PIPELINE
+// const totalDepositsUSD = movements
+//   .filter(mov => mov > 0)
+//   .map((mov, i, arr) => {
+//     console.log(arr);
+//     return mov * eurToUsd;
+//   })
+//   // .map(mov => mov * eurToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalDepositsUSD);
+
+// // FLAT AND FLATMAP METHODS
+// // .flat method turns the nested arrays and the other items in an array into a single array.
+// // Flat only goes one level deep inside the array. To go more, you need to specify in the callback paranthesis as to how deep.
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
+
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+
+// console.log(arrDeep.flat(2));
+
+// // flat
+// const overalBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0); //Zero inside the reduce method at the end is the starting point.
+// console.log(overalBalance);
+
+// // flatMap
+// const overalBalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0); //Zero inside the reduce method at the end is the starting point.
+// console.log(overalBalance2);
+
+// ARRAY METHOD PRACITCE
+
+// 1.
+// const bankDepositSum = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 0)
+//   .reduce((sum, cur) => sum + cur, 0);
+
+// console.log(bankDepositSum);
+
+// 2.
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 1000).length;
+// console.log(numDeposits1000);
+
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+// console.log(numDeposits1000);
+
+// Prefixed ++ operator
+// The ++ operator still returns the same value if called. So, you need to assign it to a variable inorder for it to work.
+let a = 10;
+// console.log(a++)
+console.log(++a); // Here, the operator adds beforehand, so no need to assign it to a var since it already did the increment.
+console.log(a);
+
+// 3.
+const { deposits, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+
+console.log(deposits, withdrawals);
+
+// 4.
+// this is a nice title -> This Is a Nice Title
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+
+  return capitalize(titleCase);
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but n ot too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));

@@ -373,12 +373,24 @@
 // const perGroup = 1000;
 // boardPassengers(180, 3);
 
-// CODING CHALLENGE 2
-(function () {
-  const header = document.querySelector('h1');
-  header.style.color = 'red';
+// // CODING CHALLENGE 2
+// (function () {
+//   const header = document.querySelector('h1');
+//   header.style.color = 'red';
 
-  document.querySelector('body').addEventListener('click', function () {
-    header.style.color = 'blue';
-  });
-})();
+//   document.querySelector('body').addEventListener('click', function () {
+//     header.style.color = 'blue';
+//   });
+// })();
+
+// PRACTICE
+
+const addTax = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addVAT = addTax(0.23);
+console.log(addVAT(230));
+console.log(addVAT(400));
