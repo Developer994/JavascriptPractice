@@ -56,17 +56,17 @@ btnScrollTo.addEventListener('click', function (e) {
 
 // SELECTING, CREATING AND DELETING ELEMENTS
 
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
 
 const header = document.querySelector('.header');
 const allSections = document.querySelectorAll('.section');
-console.log(allSections);
+// console.log(allSections);
 
 document.getElementById('section--1');
 const allButtons = document.getElementsByTagName('buttons');
-console.log(allButtons);
+// console.log(allButtons);
 
 document.getElementsByClassName('btn');
 
@@ -195,15 +195,71 @@ document
 // // 1. Add event listener to common parent element
 // // 2. Determine what element originated the event
 
-document.querySelector('.nav__links').addEventListener('click', function (e) {
-  // console.log(e.target);
-  e.preventDefault();
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   // console.log(e.target);
+//   e.preventDefault();
 
-  // Matching strategy
-  if (e.target.classList.contains('nav__link')) {
-    console.log('LINK');
-    const id = e.target.getAttribute('href');
-    console.log(id);
-    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-  }
+//   // Matching strategy
+//   if (e.target.classList.contains('nav__link')) {
+//     console.log('LINK');
+//     const id = e.target.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   }
+// });
+
+// // DOM TRAVERSING
+
+// const h1 = document.querySelector('h1');
+
+// // Going downwards: child
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes) ;
+// console.log(h1.children);
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'orangered';
+
+// // Going upwards: parents
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+// h1.closest('.h1').style.background = 'var(--gradient-primary)';
+
+// // Going sideways: siblings
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
+
+// console.log(h1.previousSibling);
+// console.log(h1.nextSibling);
+
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(0.5)'; // 0.5 = 50%;
+// });
+
+// BUILDING A TABBED COMPONENT
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab'); // with '.closest('.operations__tab')', the span won't be targeted, but rather the whole element will be targeted.
+
+  // Guard clause
+  if (!clicked) return; // if 'clicked' does not exist, the function will end.
+
+  // Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active')); // t = tabs
+  tabsContent.forEach(c => c.classList.remove('operations__content--active')); // c = content
+
+  // Active Tab
+  clicked.classList.add('operations__tab--active');
+
+  // Activate content area
+  console.log(clicked.dataset.tab);
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
