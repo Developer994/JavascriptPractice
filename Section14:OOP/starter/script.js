@@ -1,13 +1,13 @@
 'use strict';
-// // CONSTRUCTOR FUNCTIONS AND THE NEW OPERATOR
+// CONSTRUCTOR FUNCTIONS AND THE NEW OPERATOR
 // const Person = function (firstName, birthYear) {
 //   this.firstName = firstName;
 //   this.birthYear = birthYear;
 
-//   //   Never do this
-//   //   this.calcAge = function () {
-//   //     console.log(2037 - this.birthYear);
-//   //   };
+//   //   //   Never do this
+//   //   //   this.calcAge = function () {
+//   //   //     console.log(2037 - this.birthYear);
+//   //   //   };
 // };
 
 // const rez = new Person('Rez', 1994);
@@ -25,6 +25,13 @@
 
 // console.log(rez instanceof Person);
 // console.log(jay instanceof Person);
+
+// Person.hey = function () {
+//   console.log('Hey there 👋');
+//   console.log(this);
+// };
+
+// Person.hey();
 
 // // PROTOTYPES
 
@@ -78,10 +85,143 @@
 // // console.dir(h1);
 // console.dir(x => x + 1);
 
-// ES6 CLASSES
+// // SETTERS AND GETTERS
+// // ES6 CLASSES
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   }
+//   greet() {
+//     console.log(`Hey ${this.firstName}`);
+//   }
+
+//   get age() {
+//     return 2037 - this.birthYear;
+//   }
+
+//   // Set a property that already exists(in this case, it's fullName as it already declared above.)
+//   set fullName(name) {
+//     console.log(name);
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
+
+//   get fullName() {
+//     return this._fullName;
+//   }
+
+//   // STATIC METHODS
+//   static hey() {
+//     console.log('Hey there 👋');
+//     console.log(this);
+//   }
+// }
+
+// const jessica = new PersonCl('Jessica Davis', 1996);
+// console.log(jessica);
+// jessica.calcAge();
+// console.log(jessica.age);
+
+// console.log(jessica.__proto__ === PersonCl.prototype);
+
+// // PersonCl.prototype.greet = function () {
+// //   console.log(`Hey ${this.firstName}`);
+// // };
+
+// jessica.greet();
+
+// // 1. Classes are not hoisted
+// // 2. Classes are first-classed citizens
+// // 3. Classes are executed in strict mode
+
+// const walter = new PersonCl('Walter White', 1965);
+
+// PersonCl.hey();
+
+// SETTERS AND GETTERS
+
+const account = {
+  owner: 'Rez',
+  movements: [200, 530, 120, 300],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  // Setters must contain a parameter inside the paranthesis
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+
+account.latest = 50;
+console.log(account.movements);
+
+// // OBJECT.CREATE
+
+// const PersonProto = {
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   },
+
+//   init(firstName, birthYear) {
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   },
+// };
+
+// const steven = Object.create(PersonProto);
+// console.log(steven);
+// steven.name = 'Steven';
+// steven.birthYear = 2002;
+// steven.calcAge();
+
+// console.log(steven.__proto__ === PersonProto);
+
+// const sarah = Object.create(PersonProto);
+// sarah.init('Sarah', 1979);
+
+// sarah.calcAge();
+
+// // INHERITANCE BETWEEN "CLASSES": CONSTRUCTOR FUNCTIONS
+
+// const Person = function (firstName, birthYear) {
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// };
+
+// Person.prototype.calcAge = function () {
+//   console.log(2037 - this.birthYear);
+// };
+
+// const Student = function (firstName, birthYear, course) {
+//   Person.call(this, firstName, birthYear);
+//   this.course = course;
+// };
+
+// // Linking prototypes
+// Student.prototype = Object.create(Person.prototype);
+
+// Student.prototype.introduce = function () {
+//   console.log(`My name is ${this.firstName} and I study ${this.course}`);
+// };
+
+// const mike = new Student('Mike', 2020, 'Computer Science');
+// mike.introduce();
+
+// mike.calcAge();
+
+// INHERITANCE BETWEEN "CLASSES": ES6 CLASSES
+
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
   calcAge() {
@@ -90,20 +230,81 @@ class PersonCl {
   greet() {
     console.log(`Hey ${this.firstName}`);
   }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // Set a property that already exists(in this case, it's fullName as it already declared above.)
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  // STATIC METHODS
+  static hey() {
+    console.log('Hey there 👋');
+    console.log(this);
+  }
 }
 
-const jessica = new PersonCl('Jessica', 1996);
-console.log(jessica);
-jessica.calcAge();
+// "extemds" links the prototype. Therefore, the StudentCl inherits from the PersonCl
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    super(fullName, birthYear); // Always needs to happen first! Or else, you won't have access to the 'this' keyword
+    this.course = course;
+  }
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+  calcAge() {
+    console.log(
+      `I'm ${
+        2037 - this.birthYear
+      } years old, but as a student, I feel more like ${
+        2037 - this.birthYear + 10
+      }`
+    );
+  }
+}
 
-console.log(jessica.__proto__ === PersonCl.prototype);
+const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+martha.introduce();
 
-// PersonCl.prototype.greet = function () {
-//   console.log(`Hey ${this.firstName}`);
-// };
+martha.calcAge();
 
-jessica.greet();
+// INHERITANCE BETWEEN "CLASSES": OBJECT.CREATE
 
-// 1. Classes are not hoisted
-// 2. Classes are first-classed citizens
-// 3. Classes are executed in strict mode
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    // init is the short for initiate, so it means to create a new object
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.fullName} and I study ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2010, 'Computer Science');
+jay.introduce();
+jay.calcAge();
